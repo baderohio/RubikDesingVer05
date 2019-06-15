@@ -60,9 +60,14 @@ function rotationFunction() {
  var numStepRot = parseInt($( "#stepRotation" ).val());    // number step of rotation
  var cellLocation = parseInt($( "#cellRotation" ).val());  // location to rotate
 
-
+// rotation around X-axis
+if ( axisVar == "x" ) {
+	matrixXaxisRotationFunction(cellLocation, numStepRot, matrixDimension,  rightsideArr, bottomArr, leftsideArr, topArr);
+	cellColorXaxisRotationFunction(cL, cellLocation, matrixDimension, rightsideArr, bottomArr, leftsideArr, topArr, colorFace);	
+	
+}
 // rotation around Y-axis
-if ( axisVar == "y") { 
+if ( axisVar == "y" ) { 
 // rotate matrix around Z axis for selected cell in the middle not edge
 matrixYaxisRotationFunction(cellLocation, numStepRot, matrixDimension, topArr, frontArr, bottomArr, backArr);
 cellColorYaxisRotationFunction(cL, cellLocation, matrixDimension, topArr, frontArr, bottomArr, backArr, colorFace);	
@@ -70,7 +75,7 @@ cellColorYaxisRotationFunction(cL, cellLocation, matrixDimension, topArr, frontA
 } 
 
 // rotation around Z-axis
-if ( axisVar == "z") {
+if ( axisVar == "z" ) {
 // rotate matrix around Z axis for selected cell in the middle not edge
 matrixZaxisRotationFunction(cellLocation, numStepRot, matrixDimension, backArr, rightsideArr, frontArr, leftsideArr);
 // rotate cell color around Z axis for selected cell in the middle not edge

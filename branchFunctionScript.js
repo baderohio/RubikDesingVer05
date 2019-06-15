@@ -76,14 +76,40 @@ function initializeMatrixFunction(backArr, rightsideArr, frontArr, leftsideArr, 
                                                           }
                                                                                                                                }
 
+//rotate matrix around X-axis for cell in middle not edge give color
+ // k repsent step rotation in middle in clock wise dircetion
+ // axisVar = X, numStepRot = 1, cellLocation = middle;
+function matrixXaxisRotationFunction(cellLocation, numStepRot, matrixDimension, rightsideArr, bottomArr, leftsideArr, topArr) {
+ // define variables
+   var j, i, k, temp;
+   //console.log(topArr);
+  for(k=0; k < numStepRot; k++){
+	j = 0;  	  
+   for (i=matrixDimension-cellLocation; i < matrixDimension*matrixDimension; i=i+matrixDimension) {	
+     
+	temp=rightsideArr[i];
+	rightsideArr[i]=bottomArr[j+matrixDimension*(cellLocation-1)];
+	 bottomArr[j+matrixDimension*(cellLocation-1)] = leftsideArr[matrixDimension*(matrixDimension-1)-j*matrixDimension+(cellLocation-1)];
+	leftsideArr[matrixDimension*(matrixDimension-1)-j*matrixDimension+(cellLocation-1)] = topArr[(matrixDimension*matrixDimension-1)-(j+matrixDimension*(cellLocation-1))];
+	topArr[(matrixDimension*matrixDimension-1)-(j+matrixDimension*(cellLocation-1))] = temp;
+	
+	//console.log(i);
+	
+	
 
+	 j = j + 1;
+	 
+                                                                     }
+                             }						 
+     //console.log(backArr);              
+			   }
 //rotate matrix around Z-axis for cell in middle not edge give color
  // k repsent step rotation in middle in clock wise dircetion
  // axisVar = Z, numStepRot = 1, cellLocation = middle;
 function matrixZaxisRotationFunction(cellLocation, numStepRot, matrixDimension, backArr, rightsideArr, frontArr, leftsideArr) {
  // define variables
  var i, k, temp;
- //console.log(backArr);
+
  
  for(k=0; k < numStepRot; k++){	 
    for (i = (cellLocation-1)*matrixDimension; i<(matrixDimension+matrixDimension*(cellLocation-1)); i++) {	
@@ -94,11 +120,9 @@ function matrixZaxisRotationFunction(cellLocation, numStepRot, matrixDimension, 
 	 leftsideArr[i] = temp;	 
                                                                                                           }
                              }
-               //console.log(backArr); 
+               
 			   }
- 
- ////////////////
- //rotate matrix around Y-axis for cell in middle not edge give color
+  //rotate matrix around Y-axis for cell in middle not edge give color
   // k repsent step rotation in middle in clock wise dircetion
   // axisVar = Y, numStepRot = 1, cellLocation = middle; 
  function matrixYaxisRotationFunction(cellLocation, numStepRot, matrixDimension, topArr, frontArr, bottomArr, backArr) {
@@ -117,7 +141,35 @@ function matrixZaxisRotationFunction(cellLocation, numStepRot, matrixDimension, 
                              }						 
      //console.log(backArr);
 }
+///////////////////////////////
+function cellColorXaxisRotationFunction(cL, cellLocation, matrixDimension, rightsideArr, bottomArr, leftsideArr, topArr, colorFace) {
+ 	 //Define variables and array
+  var i, j, k, temp, tempVar;
+  
+for (k=0; k< 6; k++) {	
 
+    // put color for each cell j is row and i is cols of matrix first cell is 0,0
+	tempVar = -1;
+   for (j = 0; j < matrixDimension; j++) {
+      for (i = 0; i < matrixDimension; i++) {
+        temp = (j+1)*10+(i+1);
+		  
+		  //["back", "rightside","front","leftside", "top", "bottom"]
+					 tempVar = tempVar + 1;					
+					     if(k==0) continue;
+						 else if(k==1) tempColor= rightsideArr[tempVar];
+						  else if(k==2) continue;
+						   else if(k==3) tempColor = leftsideArr[tempVar];
+						    else if(k==4) tempColor= topArr[tempVar];
+							 else tempColor =  bottomArr[tempVar];
+							 
+					 $("#"+cL[k]+temp).css("background-color", colorFace[tempColor]); 
+                                            } 
+                                        }									
+                         }
+                                           
+										   } 
+//////////////////////////////
 function cellColorYaxisRotationFunction(cL, cellLocation, matrixDimension, topArr, frontArr, bottomArr, backArr, colorFace) {
  	 //Define variables and array
   var i, j, k, temp, tempVar;
